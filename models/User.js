@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema(
     {
@@ -12,7 +13,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            validate: [validateEmail, 'Please use a valid email']
+            // validate: [validateEmail, 'Please use a valid email']
         },
         thoughts: [
             {
