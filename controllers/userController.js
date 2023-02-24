@@ -49,8 +49,8 @@ module.exports = {
                 !user
                 ? res.status(404).json({ message: 'User does not exist' })
                 : Thought.findOneAndUpdate(
-                    { users: req.params.studentId },
-                    { $pull: { users: req.params.userId } },
+                    { thoughts: req.params.thoughtId },
+                    { $pull: { thoughts: req.params.thoughtId } },
                     { new: true }
                     )
             )
@@ -66,5 +66,39 @@ module.exports = {
                 res.status(500).json(err);
             });
     },
-    
+
+
+    // friends
+
+    addFriend(req, res) {
+        console.log('Adding a friend');
+        console.log(req.body);
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId } },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+            !user
+                ? res
+                    .status(404)
+                    .json({ message: 'No user found with that ID' })
+                : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    removeFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: { friendId: req.params.friendId } } },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+                !user
+                ? res.status(404).json({ message: 'No user found with that ID :(' })
+                : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
 }
