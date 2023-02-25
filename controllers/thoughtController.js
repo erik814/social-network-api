@@ -52,10 +52,10 @@ module.exports = {
 
     createThought(req, res) {
         Thought.create(req.body)
-            .then(() =>
+            .then((thought) =>
                 User.findOneAndUpdate(
-                    { username: req.body.username },
-                    { $set: {thoughts: req.params.thoughtId}},
+                    { users: thought.username },
+                    { $set: {thoughts: thought}},
                     { new: true }
                 )
             )
