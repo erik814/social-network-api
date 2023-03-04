@@ -20,36 +20,6 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    // createThought(req, res) {
-    //     Thought.create(req.body)
-    //         .then((dbThoughtData) => res.json(dbThoughtData))
-    //         .catch((err) => res.status(500).json(err));
-    // },
-
-    // createThought(req, res) {
-    //     Thought.create(req.body)
-    //         .then((thought) =>
-    //             !thought
-    //                 ? res.status(404).json({message: 'Thought does not exist'})
-    //                 : User.findOneAndUpdate(
-    //                     { users: req.body.username },
-    //                     { $set: {thoughts: req.params.thoughtId}},
-    //                     { new: true }
-    //                 )
-    //         )
-    //         .then((user) =>
-    //         !user
-    //         ? res.status(404).json({
-    //             message: 'Thought created, but no user found',
-    //             })
-    //         : res.json(user)
-    //     )
-    //     .catch((err) => {
-    //         console.log(err);
-    //         res.status(500).json(err);
-    //     });
-    // },
-
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) =>
